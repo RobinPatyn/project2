@@ -1,0 +1,36 @@
+<!--
+  Generated template for the ActiviteitenPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Activiteiten</ion-title>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name='menu'></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons end>
+      <button navPush="AddActiviteitPage" ion-button>
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-searchbar></ion-searchbar>
+    <ion-list>
+      <ion-item *ngFor="let activiteit of activiteitenList$ | async"
+      detail-push navPush="ActiviteitDetailPage" [navParams]="{activiteit: activiteit}">
+        <h2><strong> {{ activiteit.titel }} </strong></h2>
+        <h3>{{ activiteit.beschrijving }} </h3>
+      </ion-item>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,36 @@
+<!--
+  Generated template for the AddActiviteitPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Activiteit Toevoegen</ion-title>
+    <ion-buttons left>
+        <button ion-button icon-only menuToggle>
+          <ion-icon name='menu'></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-label>Titel</ion-label>
+    <ion-input [(ngModel)]="activiteit.titel" placeholder="Naam van activiteit"></ion-input>
+  </ion-item>
+
+  <ion-item>
+      <ion-label>Beschrijving</ion-label>
+      <ion-textarea [(ngModel)]="activiteit.beschrijving" placeholder="Beschrijving van activiteit"></ion-textarea>
+  </ion-item>
+
+  <button ion-button round outline (click)="takePicture()">Foto maken</button>
+
+  <button ion-button round outline (click)="addActiviteit(activiteit)">Toevoegen</button>
+
+</ion-content>

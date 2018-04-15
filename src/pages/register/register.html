@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>registreer</ion-title>
+    <ion-title>Registreer</ion-title>
     <ion-buttons end> 
       <button ion-button (click)="login()"> Login </button>
     </ion-buttons>
@@ -22,13 +22,13 @@
 
         <ion-item>
           <ion-label floating>Naam</ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-input [(ngModel)]="profile.naam"></ion-input>
         </ion-item>
-
+  
         <ion-item>
-            <ion-label floating>Voornaam</ion-label>
-            <ion-input type="text"></ion-input>
-          </ion-item>
+          <ion-label floating>Voornaam</ion-label>
+          <ion-input [(ngModel)]="profile.voornaam"></ion-input>
+        </ion-item>
 
         <ion-item>
           <ion-label floating>Email</ion-label>
@@ -44,7 +44,7 @@
           <ion-input  [(ngModel)]="user.password2"  type="password"></ion-input>
         </ion-item>
         
-          <br/><button ion-button round outline (click)="register()">Registreer</button>
+          <br/><button ion-button round outline (click)="register(user)">Registreer</button>
         
 
 </ion-content>

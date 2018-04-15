@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { RegisterPage } from '../register/register';
-import { ListPage } from '../list/list';
+import { ProfilePage } from '../profile/profile';
+import { User } from '../../models/user';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the LoginPage page.
@@ -18,15 +20,12 @@ import { ListPage } from '../list/list';
 })
 export class LoginPage {
 
-  user={
-    email:"robinpatyn@hotmail.com",
-    password:"testwachtwoord"
-  }
+  user = {} as User;
 
   constructor(
+    private afAuth: AngularFireAuth,
     public navCtrl: NavController, 
-    public navParams: NavParams,
-    private authService:AuthServiceProvider
+    public navParams: NavParams
   ) {
   }
 
@@ -34,14 +33,21 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  login(){
-    this.authService.login(this.user.email,this.user.password)
-    .then(()=>{
-      if(this.authService.isLoggedIn){
-        this.navCtrl.setRoot(ListPage);
+  async login(user: User){
+    try{
+      const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
+      if (result){
+        this.navCtrl.setRoot(ProfilePage);
       }
-    });
+      else{
+        this.navCtrl.setRoot(HomePage);
+      }
+    }
+    catch (e){
+      console.error(e);
   }
+}
+
   register(){
     this.navCtrl.setRoot(RegisterPage);
   }

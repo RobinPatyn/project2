@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { SettingsProvider } from '../providers/settings/settings';
 
 @Component({
   templateUrl: 'app.html'
@@ -14,24 +14,19 @@ export class MyApp {
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any}>;
+  selectedTheme:String;
 
   constructor(
     public platform: Platform, 
     public statusBar: StatusBar, 
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    private settings: SettingsProvider
   ){
-    this.initializeApp();
-
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
-    ];
-
+   this.initializeApp();
   }
 
   initializeApp() {
+    this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

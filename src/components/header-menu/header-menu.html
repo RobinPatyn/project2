@@ -1,0 +1,59 @@
+<div>
+  <ion-list no-lines>
+    <ion-item class='menubutton'>
+      <button ion-button clear (click)="profileClicked()">
+        <div>
+          <label>Profiel</label>
+          <ion-icon name='contact'></ion-icon> 
+        </div> 
+      </button>
+    </ion-item>
+
+    <ion-item class='menubutton'>
+      <button ion-button clear (click)="activiteitenClicked()">
+        <div> 
+          <label>Activiteiten</label>
+          <ion-icon name='paper'></ion-icon> 
+        </div> 
+      </button>
+    </ion-item>
+
+    <ion-item class='menubutton'>
+      <button ion-button clear (click)="addActiviteitClicked()">
+        <div> 
+          <label>Activiteit toevoegen</label>
+          <ion-icon name='add-circle'></ion-icon> 
+        </div> 
+      </button><br/>
+    </ion-item>
+
+    <ion-item class='menubutton'>
+        <button ion-button clear (click)="settingsClicked()">
+          <div> 
+            <label>Instellingen</label>
+            <ion-icon name='settings'></ion-icon> 
+          </div> 
+        </button><br/>
+      </ion-item>
+
+    <ion-footer>
+      <ion-item class='menubutton'>
+        <button ion-button clear (click)="aboutClicked()">
+          <div> 
+            <label>About</label>
+            <ion-icon name='information-circle'></ion-icon> 
+          </div> 
+        </button><br/>
+      </ion-item>
+
+      <ion-item class='menubutton'>
+        <button ion-button clear (click)="logoutClicked()">
+          <div> 
+            <label>Logout</label>
+            <ion-icon name='log-out'></ion-icon> 
+          </div> 
+        </button><br/>
+      </ion-item>
+    </ion-footer>
+  </ion-list>
+</div>
