@@ -57,6 +57,9 @@ export class RegisterPage {
         console.error(e);
       }
     }
+    else{
+      this.navCtrl.setRoot(RegisterPage);
+    }
   }
 
   presentToast(message: string) {

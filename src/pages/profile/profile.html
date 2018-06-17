@@ -17,10 +17,8 @@
         <!--<ion-avatar item-left>
           <img [src]="../../../resources/icon.png" alt="User Profile Picture" />
         </ion-avatar>-->
-        <ul> 
-          <li *ngFor="let profile of profileData$ | async"> 
-            {{ profileData.voornaam}}:{{ profileData.naam}}
-          </li> 
+        <ul *ngFor="let Profile of Profiledata | async"> 
+          <li>Welkom {{ Profile.voornaam }} {{ Profile.naam }} !</li>
         </ul>
       </ion-item>
 </ion-content>

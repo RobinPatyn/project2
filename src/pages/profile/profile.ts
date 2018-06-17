@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, MenuController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable'
 import { Profile } from '../../models/profile';
+import { User } from '../../models/user';
 
 /**
  * Generated class for the ProfilePage page.
@@ -18,16 +20,20 @@ import { Profile } from '../../models/profile';
 })
 export class ProfilePage {
 
-  profileData: AngularFireObject<Profile>
+  profileData: Observable<any>
 
   constructor(
     private afAuth: AngularFireAuth,
     private afDatabase: AngularFireDatabase,
     private toast: ToastController,
     public navCtrl: NavController, 
-    public navParams: NavParams
+    public navParams: NavParams,
+    public menuCtrl: MenuController
+    
   ){
+    this.menuCtrl.enable(true);
   }
+
 
   ionViewWillLoad() {
 
@@ -37,9 +43,9 @@ export class ProfilePage {
           message: `Welkom bij Mijn Jeugdbeweging, ${data.email}`,
           duration: 3000
         }).present();
+          
+          this.profileData = this.afDatabase.object(`profile/${data.uid}`).valueChanges()
 
-        this.profileData = this.afDatabase.object(`Profile/${data.uid}`);
-        console.log(this.profileData);
       }
       else{
         this.toast.create({

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { RegisterPage } from '../register/register';
 import { ProfilePage } from '../profile/profile';
 import { User } from '../../models/user';
@@ -24,8 +24,9 @@ export class LoginPage {
 
   constructor(
     private afAuth: AngularFireAuth,
+    private toast : ToastController,
     public navCtrl: NavController, 
-    public navParams: NavParams
+    public navParams: NavParams    
   ) {
   }
 
@@ -40,7 +41,7 @@ export class LoginPage {
         this.navCtrl.setRoot(ProfilePage);
       }
       else{
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot(LoginPage);
       }
     }
     catch (e){

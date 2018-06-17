@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { SettingsProvider } from '../../providers/settings/settings';
 
 /**
@@ -21,9 +21,12 @@ export class SettingsPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
+    public menuCtrl: MenuController,
     private settings: SettingsProvider
   ) {
     this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
+
+    this.menuCtrl.enable(true);
   }
 
   toggleAppTheme() {

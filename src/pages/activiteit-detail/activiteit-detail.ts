@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Activiteit } from '../../models/activiteit/activiteit.model';
 import { ActiviteitenListService } from '../../services/activiteiten-list/activiteiten-list.service';
 import { Observable } from 'rxjs/Observable';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { FireDataServiceProvider } from '../../providers/fire-data-service/fire-data-service';
 
 

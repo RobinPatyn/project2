@@ -33,7 +33,8 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-  }
+}
+
 
   openPage(page) {
     // Reset the content nav to have just this page
