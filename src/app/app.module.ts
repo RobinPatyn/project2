@@ -11,7 +11,7 @@ import { RegisterPage } from '../pages/register/register';
 import { SettingsPage } from '../pages/settings/settings';
 import { Camera } from '@ionic-native/camera';
 
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabaseModule } from 'angularfire2/database'
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
 
@@ -26,15 +26,10 @@ import { AddActiviteitPageModule } from '../pages/add-activiteit/add-activiteit.
 import { ActiviteitenListService } from '../services/activiteiten-list/activiteiten-list.service';
 import { ToastService } from '../services/toast/toast.service';
 import { FireDataServiceProvider } from '../providers/fire-data-service/fire-data-service';
+import { FIREBASE_CONFIG } from './firebase.config';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
-var config = {
-  apiKey: "AIzaSyChYEFSRdfZ_t0RoQX1Q4sJo6rY5uyAqSE",
-  authDomain: "project-5285d.firebaseapp.com",
-  databaseURL: "https://project-5285d.firebaseio.com",
-  projectId: "project-5285d",
-  storageBucket: "project-5285d.appspot.com",
-  messagingSenderId: "338151531502"
-};
+
 
 @NgModule({
   declarations: [
@@ -53,7 +48,7 @@ var config = {
     IonicModule.forRoot(MyApp),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    AngularFireModule.initializeApp(config),
+    AngularFireModule.initializeApp(FIREBASE_CONFIG),
     ActiviteitenPageModule,
     AddActiviteitPageModule
   ],
@@ -77,7 +72,8 @@ var config = {
     ActiviteitenListService,
     ToastService,
     Camera,
-    FireDataServiceProvider
+    FireDataServiceProvider,
+    AuthServiceProvider
   ]
 })
 export class AppModule {}

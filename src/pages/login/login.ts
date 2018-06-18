@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { RegisterPage } from '../register/register';
-import { ProfilePage } from '../profile/profile';
 import { User } from '../../models/user';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
+import { ActiviteitenPage } from '../activiteiten/activiteiten';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 /**
  * Generated class for the LoginPage page.
@@ -23,7 +23,7 @@ export class LoginPage {
   user = {} as User;
 
   constructor(
-    private afAuth: AngularFireAuth,
+    private authService: AuthServiceProvider,
     private toast : ToastController,
     public navCtrl: NavController, 
     public navParams: NavParams    
@@ -34,20 +34,14 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  async login(user: User){
-    try{
-      const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
-      if (result){
-        this.navCtrl.setRoot(ProfilePage);
+  login(){
+    this.authService.login(this.user.email,this.user.password)
+    .then(()=>{
+      if(this.authService.isLoggedIn){
+        this.navCtrl.setRoot(ActiviteitenPage);
       }
-      else{
-        this.navCtrl.setRoot(LoginPage);
-      }
-    }
-    catch (e){
-      console.error(e);
+    });
   }
-}
 
   register(){
     this.navCtrl.setRoot(RegisterPage);

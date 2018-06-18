@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ToastController, NavParams } from 'ionic-angular';
 import { LoginPage } from '../login/login';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Profile } from '../../models/profile';
-import { ProfilePage } from '../profile/profile';
 import { User } from '../../models/user';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { ActiviteitenPage } from '../activiteiten/activiteiten';
 
 
 /**
@@ -22,12 +22,14 @@ import { User } from '../../models/user';
 })
 export class RegisterPage {
 
-  profile = {} as Profile;
-
-  user = {} as User;
+  user={
+    email:"",
+    password:"",
+    password2:""
+  }
 
   constructor(
-    private afAuth: AngularFireAuth,
+    private AuthService: AuthServiceProvider,
     private afDatabase: AngularFireDatabase,
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -43,22 +45,17 @@ export class RegisterPage {
     this.navCtrl.setRoot(LoginPage);
   }
 
-  async register(user: User){
+  register(){
     if(this.user.password===this.user.password2){
-      try{
-   const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
-   console.log(result);
-   this.afAuth.authState.take(1).subscribe( auth => {
-    this.afDatabase.object(`profile/${auth.uid}`).set(this.profile)
-    .then(() => this.navCtrl.setRoot(ProfilePage));
-   })
-      }
-      catch (e){
-        console.error(e);
-      }
-    }
-    else{
-      this.navCtrl.setRoot(RegisterPage);
+      this.AuthService.register(this.user.email,this.user.password)
+      .then(()=>{
+        if(this.AuthService.isRegisterSuccess){
+          this.AuthService.isRegisterSuccess=false;
+          this.navCtrl.setRoot(ActiviteitenPage);
+        }
+      });
+    }else{
+      this.presentToast("Passwords need to be identical.");
     }
   }
 

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, MenuController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database'
 import { Observable } from 'rxjs/Observable'
 import { Profile } from '../../models/profile';
+import { ProfileService } from '../../services/profile/profile-service'
 import { User } from '../../models/user';
+import { FireDataServiceProvider } from '../../providers/fire-data-service/fire-data-service';
 
 /**
  * Generated class for the ProfilePage page.
@@ -20,11 +22,13 @@ import { User } from '../../models/user';
 })
 export class ProfilePage {
 
-  profileData: Observable<any>
+  stores: Observable<any[]>;
+
+  profile: Profile;
 
   constructor(
     private afAuth: AngularFireAuth,
-    private afDatabase: AngularFireDatabase,
+    private db: FireDataServiceProvider,
     private toast: ToastController,
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -38,14 +42,20 @@ export class ProfilePage {
   ionViewWillLoad() {
 
     this.afAuth.authState.take(1).subscribe(data => {
+
       if (data && data.email && data.uid) {
         this.toast.create({
           message: `Welkom bij Mijn Jeugdbeweging, ${data.email}`,
           duration: 3000
         }).present();
           
-          this.profileData = this.afDatabase.object(`profile/${data.uid}`).valueChanges()
+         this.stores = this.db.getAll();
 
+         this.stores.subscribe((result) => {
+          console.log("got this data from provider", result);
+        }, (error) => {
+          console.log("Didn't get any data", error);
+        })
       }
       else{
         this.toast.create({

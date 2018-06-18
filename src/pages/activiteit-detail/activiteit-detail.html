@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{activiteit?.titel}}</ion-title>
+    <ion-title>Activiteit</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -19,11 +19,10 @@
 
     <ion-card>
         <ion-card-content class="ion-card-content" style="white-space: pre-line;">
-      <h2><strong> {{ activiteit.titel }} </strong></h2>
-      <p>{{ activiteit.beschrijving }} </p>
-      <ion-item *ngFor="let store of stores | async">
-          <img src="{{store.imageData}}" alt="avatar">
-        {{store.name}}
+      <h2><strong> {{ activiteit?.titel }} </strong></h2>
+      <p>{{ activiteit?.beschrijving }} </p>
+      <ion-item>
+          <img src="{{ activiteit?.image.imageData }}">
       </ion-item>
       </ion-card-content>
     </ion-card>

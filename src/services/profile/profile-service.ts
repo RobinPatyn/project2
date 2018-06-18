@@ -6,10 +6,10 @@ import { Profile } from "../../models/profile";
 @Injectable()
 export class ProfileService {
 
-    private ProfileRef = this.afDatabase.object<Profile>
+    private ProfileRef = this.db.list<Profile>
     ('profile');
 
-    constructor(private afDatabase: AngularFireDatabase) {}
+    constructor(private db: AngularFireDatabase) {}
 
     getProfile() {
         return this.ProfileRef;

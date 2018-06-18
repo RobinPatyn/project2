@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import firebase from 'firebase';
 import { ActiviteitenListService } from '../../services/activiteiten-list/activiteiten-list.service';
 import { Observable } from 'rxjs/Observable';
@@ -24,8 +24,10 @@ export class ActiviteitenPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
+    public menuCtrl: MenuController,
     private activiteiten: ActiviteitenListService
   ) {
+    this.menuCtrl.enable(true);
 
     this.activiteitenList$ = this.activiteiten
     .getActiviteitenList() // DB list
@@ -38,5 +40,4 @@ export class ActiviteitenPage {
         }));
       });
   }
-
 }

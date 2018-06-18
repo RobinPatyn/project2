@@ -3,8 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Activiteit } from '../../models/activiteit/activiteit.model';
 import { ActiviteitenListService } from '../../services/activiteiten-list/activiteiten-list.service';
 import { ToastService } from '../../services/toast/toast.service';
-import { Observable } from 'rxjs/Observable';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Observable } from 'rxjs/Observable'
 import { FireDataServiceProvider } from '../../providers/fire-data-service/fire-data-service';
 
 /**
@@ -30,14 +30,29 @@ export class AddActiviteitPage {
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE,
     allowEdit:true,
-    targetHeight:250,
-    targetWidth:250
+    correctOrientation: true,
+    targetHeight:600,
+    targetWidth:600
+  }
+
+  readonly options2: CameraOptions = {
+    quality: 100,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE,
+    allowEdit: true,
+    correctOrientation: true,
+    targetHeight: 600,
+    targetWidth: 600,
+    sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM 
   }
 
   activiteit: Activiteit = {
     titel:'',
-    beschrijving:''
+    beschrijving:'',
+    image:''
   };
+
 
   constructor(
     public navCtrl: NavController, 
@@ -51,28 +66,40 @@ export class AddActiviteitPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddActiviteitPage');
+    this.stores = this.db.getAll();
+
+    this.stores.subscribe((result) => {
+      console.log("got this data from provider", result);
+    }, (error) => {
+      console.log("Didn't get any data", error);
+    })
   }
 
   takePicture() {
     this.camera.getPicture(this.options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       
       let store ={
         imageData:base64Image
       }
-      this.db.update("0",store);
+
+      this.activiteit.image = store
     }, (err) => {
-      // Handle error
+      this.toast.show(`foto nemen niet mogelijk`);
     });
-  }  
+  }
 
   addActiviteit(activiteit: Activiteit) {
+    if (this.activiteit.titel == '' ||
+    this.activiteit.beschrijving =='')
+    {
+      this.toast.show('Vul alle velden in');
+    }
+    else{
     this.activiteiten.addActiviteit(activiteit).then(ref => {
       this.toast.show(`${activiteit.titel} toegevoegd!`);
       this.navCtrl.setRoot('ActiviteitenPage', { key: ref.key}) 
     });
   }
-
+}
 }
