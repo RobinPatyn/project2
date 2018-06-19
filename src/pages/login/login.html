@@ -22,12 +22,12 @@
 
         <ion-item>
           <ion-label floating>E-mail</ion-label>
-          <ion-input  [(ngModel)]="user.email" value="robinpatyn@hotmail.com" type="text"></ion-input>
+          <ion-input  [(ngModel)]="user.email" type="text"></ion-input>
         </ion-item>
       
         <ion-item>
           <ion-label floating>Wachtwoord</ion-label>
-          <ion-input  [(ngModel)]="user.password" value="testwachtwoord" type="password"></ion-input>
+          <ion-input  [(ngModel)]="user.password" type="password"></ion-input>
         </ion-item>
         <button ion-button round outline (click)="login(user)">Login</button>
 
